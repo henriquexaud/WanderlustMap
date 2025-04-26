@@ -1,4 +1,3 @@
-
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Icon } from 'leaflet';
@@ -41,9 +40,10 @@ interface MapProps {
 export const Map = ({ locations, selectedLocation }: MapProps) => {
   return (
     <MapContainer
-      center={[-14.2350, -51.9253] as [number, number]}
+      center={[-14.2350, -51.9253]}
       zoom={4}
       className="w-full h-full"
+      scrollWheelZoom={true}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -53,7 +53,7 @@ export const Map = ({ locations, selectedLocation }: MapProps) => {
       {locations.map((location) => (
         <Marker
           key={location.id}
-          position={[location.latitude, location.longitude] as [number, number]}
+          position={[location.latitude, location.longitude]}
           icon={defaultIcon}
         >
           <Popup>
