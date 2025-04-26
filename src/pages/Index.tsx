@@ -2,11 +2,16 @@
 import { useState } from 'react';
 import { Map } from '@/components/Map';
 import { Sidebar } from '@/components/Sidebar';
-import { categories, touristLocations } from '@/data/touristLocations';
+import { categories, touristLocations, TouristLocation } from '@/data/touristLocations';
 import '../index.css';
 
 const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedLocation, setSelectedLocation] = useState<TouristLocation | null>(null);
+
+  const filteredLocations = selectedCategory === "All" 
+    ? touristLocations 
+    : touristLocations.filter(loc => loc.category === selectedCategory);
 
   return (
     <div className="flex h-screen w-full">
@@ -14,14 +19,13 @@ const Index = () => {
         locations={touristLocations}
         selectedCategory={selectedCategory}
         onCategoryChange={setSelectedCategory}
+        onLocationSelect={setSelectedLocation}
         categories={categories}
       />
       <div className="flex-1 relative">
         <Map 
-          locations={selectedCategory === "All" 
-            ? touristLocations 
-            : touristLocations.filter(loc => loc.category === selectedCategory)
-          }
+          locations={filteredLocations}
+          selectedLocation={selectedLocation}
         />
       </div>
     </div>

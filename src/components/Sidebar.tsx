@@ -8,6 +8,7 @@ interface SidebarProps {
   locations: TouristLocation[];
   selectedCategory: string;
   onCategoryChange: (category: string) => void;
+  onLocationSelect: (location: TouristLocation) => void;
   categories: string[];
 }
 
@@ -15,6 +16,7 @@ export const Sidebar = ({
   locations,
   selectedCategory,
   onCategoryChange,
+  onLocationSelect,
   categories,
 }: SidebarProps) => {
   const filteredLocations = selectedCategory === "All" 
@@ -51,6 +53,7 @@ export const Sidebar = ({
             <div
               key={location.id}
               className="p-4 border rounded-lg hover:border-blue-500 cursor-pointer transition-colors"
+              onClick={() => onLocationSelect(location)}
             >
               <div className="flex items-start gap-2">
                 <MapPin className="w-5 h-5 text-blue-500 mt-1" />
