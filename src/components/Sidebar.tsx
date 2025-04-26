@@ -23,44 +23,41 @@ export const Sidebar = ({
     ? locations 
     : locations.filter(location => location.category === selectedCategory);
 
+  const mainCategories = ["All", "Praias", "Natureza", "Histórico", "Urbano"];
+
   return (
     <div className="w-80 bg-white h-full border-r flex flex-col">
-      <div className="p-4 border-b">
-        <h1 className="text-2xl font-bold text-gray-800">Brazil Tourist Spots</h1>
-        <div className="flex gap-2 mt-4 flex-wrap">
-          <Button
-            variant={selectedCategory === "All" ? "default" : "outline"}
-            onClick={() => onCategoryChange("All")}
-            className="text-sm"
-          >
-            All
-          </Button>
-          {categories.map((category) => (
-            <Button
-              key={category}
-              variant={selectedCategory === category ? "default" : "outline"}
-              onClick={() => onCategoryChange(category)}
-              className="text-sm"
-            >
-              {category}
-            </Button>
-          ))}
-        </div>
+      <div className="p-3 border-b">
+        <h1 className="text-xl font-bold text-gray-800 mb-2">Brazil Tourist Spots</h1>
+        <ScrollArea className="w-full" orientation="horizontal">
+          <div className="flex gap-1.5 pb-2">
+            {mainCategories.map((category) => (
+              <Button
+                key={category}
+                variant={selectedCategory === category ? "default" : "outline"}
+                onClick={() => onCategoryChange(category)}
+                className="text-xs px-3 py-1 h-7 whitespace-nowrap"
+              >
+                {category}
+              </Button>
+            ))}
+          </div>
+        </ScrollArea>
       </div>
       <ScrollArea className="flex-1">
-        <div className="p-4 space-y-4">
+        <div className="p-3 space-y-2">
           {filteredLocations.map((location) => (
             <div
               key={location.id}
-              className="p-4 border rounded-lg hover:border-blue-500 cursor-pointer transition-colors"
+              className="p-3 border rounded-lg hover:border-blue-500 cursor-pointer transition-colors"
               onClick={() => onLocationSelect(location)}
             >
               <div className="flex items-start gap-2">
-                <MapPin className="w-5 h-5 text-blue-500 mt-1" />
+                <MapPin className="w-4 h-4 text-blue-500 mt-1 shrink-0" />
                 <div>
-                  <h3 className="font-medium">{location.name}</h3>
-                  <p className="text-sm text-gray-600">{location.category}</p>
-                  <p className="text-sm text-gray-500 mt-1">
+                  <h3 className="font-medium text-sm">{location.name}</h3>
+                  <p className="text-xs text-gray-600">{location.category}</p>
+                  <p className="text-xs text-gray-500 mt-1 line-clamp-2">
                     {location.description}
                   </p>
                 </div>
